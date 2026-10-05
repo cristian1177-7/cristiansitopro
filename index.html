@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tetris - Grupo 6</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <main class="app">
+
+        <!-- ENCABEZADO -->
+        <header class="app-header">
+            <h1>TETRIS</h1>
+
+            <div class="controls">
+                <label for="setSelector">Set:</label>
+
+                <select id="setSelector">
+                    <option value="clasico">Set Clásico</option>
+                    <option value="espacial">Set Espacial</option>
+                    <option value="naturaleza">Set Naturaleza</option>
+                    <option value="neon">Set Neón</option>
+                    <option value="retro">Set Retro</option>
+                </select>
+            </div>
+        </header>
+
+        <!-- PANEL LATERAL: GUARDADA / SIGUIENTE / PUNTOS -->
+        <aside class="side">
+
+            <section class="card hold-card" id="holdCard">
+                <h2>Guardada</h2>
+                <canvas id="holdCanvas" class="mini" width="100" height="100"></canvas>
+                <p class="hint"><kbd>C</kbd> o <kbd>Shift</kbd></p>
+            </section>
+
+            <section class="card">
+                <h2>Siguiente</h2>
+                <canvas id="nextCanvas" class="mini" width="100" height="100"></canvas>
+            </section>
+
+            <section class="card stat-card">
+                <h2>Puntos</h2>
+                <span class="stat-value" id="score">0</span>
+            </section>
+
+            <section class="card stat-card">
+                <h2>Líneas</h2>
+                <span class="stat-value" id="lines">0</span>
+            </section>
+
+        </aside>
+
+        <!-- TABLERO -->
+        <div class="board-col">
+            <div class="board-wrap">
+                <canvas id="tetris" width="300" height="600"></canvas>
+            </div>
+
+            <div class="touch-controls">
+                <button data-accion="izquierda" aria-label="Izquierda">◀</button>
+                <button data-accion="rotar" aria-label="Rotar">↻</button>
+                <button data-accion="derecha" aria-label="Derecha">▶</button>
+                <button data-accion="abajo" aria-label="Bajar">▼</button>
+                <button data-accion="guardar" class="t-hold" aria-label="Guardar pieza">HOLD</button>
+            </div>
+        </div>
+
+        <!-- BOTONES -->
+        <div class="actions">
+            <button id="startButton" class="btn">Iniciar Juego</button>
+            <button id="helpButton" class="btn btn-secondary">¿Cómo jugar?</button>
+        </div>
+
+        <!-- HISTORIAL -->
+        <section class="card history">
+            <h2>Historial de puntajes</h2>
+
+            <div class="best">
+                Mejor puntaje
+                <strong id="bestScore">0</strong>
+            </div>
+
+            <ol id="historyList"></ol>
+
+            <button id="clearHistory" class="link-btn">Borrar historial</button>
+        </section>
+
+    </main>
+
+
+    <!-- VENTANA: CÓMO JUGAR -->
+    <div class="modal" id="helpModal" role="dialog" aria-modal="true" aria-labelledby="helpTitle">
+        <div class="modal-box">
+            <h2 id="helpTitle">¿Cómo jugar?</h2>
+
+            <p>Completa filas horizontales sin dejar huecos para eliminarlas y sumar puntos. Si las piezas llegan arriba, se acaba la partida.</p>
+
+            <table class="help-table">
+                <tr><td><kbd>←</kbd> <kbd>→</kbd></td><td>Mover la pieza</td></tr>
+                <tr><td><kbd>↑</kbd></td><td>Rotar la pieza</td></tr>
+                <tr><td><kbd>↓</kbd></td><td>Bajar más rápido</td></tr>
+                <tr><td><kbd>C</kbd> / <kbd>Shift</kbd></td><td>Guardar pieza (una vez por pieza)</td></tr>
+            </table>
+
+            <p>
+                Puntos: 1 línea = 100 · 2 = 300 · 3 = 500 · 4 = 800.<br>
+                En pantallas táctiles usa los botones bajo el tablero.<br>
+                El juego se pausa mientras esta ventana está abierta.
+            </p>
+
+            <button id="closeHelp" class="btn">¡Entendido!</button>
+        </div>
+    </div>
+
+    <!-- VENTANA: FIN DEL JUEGO -->
+    <div class="modal" id="gameOverModal" role="dialog" aria-modal="true" aria-labelledby="gameOverTitle" hidden>
+        <div class="modal-box">
+            <h2 id="gameOverTitle">GAME OVER</h2>
+
+            <p class="record" id="recordMsg" hidden>¡Nuevo récord!</p>
+
+            <div class="result">
+                Puntuación<br>
+                <strong id="finalScore">0</strong><br>
+                Líneas: <span id="finalLines">0</span>
+            </div>
+
+            <button id="playAgain" class="btn">Jugar de nuevo</button>
+        </div>
+    </div>
+
+    <script src="js/tetris.js"></script>
+
+</body>
+</html>
